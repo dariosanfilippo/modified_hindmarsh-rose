@@ -1,3 +1,24 @@
+// =============================================================================
+//      Modified Hindmarsh-Rose complex generator
+// ============================================================================= 
+//
+//  Complex sound generator based on modified Hindmarsh-Rose equations.
+//  The model is structurally-stable through hyperbolic tangent function
+//  saturators and allows for parameters in unstable ranges to explore 
+//  different dynamics. Furthermore, this model includes DC-blockers in the 
+//  feedback paths to counterbalance a tendency towards fixed-point attractors 
+//  – thus enhancing complex behaviours – and obtain signals suitable for audio.
+//  Besides the original parameters in the model, this system includes a
+//  saturating threshold determining the positive and negative bounds in the
+//  equations, while the output peaks are within the [-1.0; 1.0] range.
+//
+//  The system can be triggered by an impulse or by a constant of arbitrary
+//  values for deterministic and reproducable behaviours. Alternatively,
+//  the oscillator can be fed with external inputs to be used as a nonlinear
+//  distortion unit.
+//
+// =============================================================================
+
 import("stdfaust.lib");
 
 declare name "Modified Hindmarsh-Rose complex generator";
