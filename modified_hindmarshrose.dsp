@@ -16,10 +16,6 @@ declare license "GPL v3.0 license";
 // F(x)=-ax^3+bx^2
 // G(x)c-dx^2
 
-// x=x+(y+F(x)-z+I)dt
-// y=y+(G(x)-y)dt
-// z=z+(r(s(x-x_r)-z))dt
-
 hindmarshrose(l, a, b, I, c, d, r, s, x_R, dt, x_0, y_0, z_0) = 
     x_level(out * (x / l)) , 
     y_level(out * (y / l)) , 
@@ -77,4 +73,6 @@ limit = global_group(
 out = global_group(hslider("[9]Output scaling[scale:exp]", 0, 0, 1, .000001) : 
     smooth);
 
-process(x1, x2, x3) = hindmarshrose(limit, a, b, I, c, d, r, s, x_r, dt, input(x1), input(x2), input(x3));
+process(x1, x2, x3) = 
+    hindmarshrose(limit, a, b, I, c, d, r, s, x_r, dt, input(x1), 
+        input(x2), input(x3));
