@@ -69,29 +69,29 @@ y_level(x) = attach(x , abs(x) : ba.linear2db :
     levels_group(hbargraph("[6]y[style:dB]", -60, 0)));
 z_level(x) = attach(x , abs(x) : ba.linear2db : 
     levels_group(hbargraph("[7]z[style:dB]", -60, 0)));
-x_param_group(x) = vgroup("[2]x-parameters", x);
-y_param_group(x) = vgroup("[3]y-parameters", x);
-z_param_group(x) = vgroup("[4]z-parameters", x);
-global_group(x) = vgroup("[1]Global", x);
-levels_group(x) = hgroup("[5]Levels (dB)", x);
-a = x_param_group(hslider("[1]a", 1, -20, 20, .000001) : smooth);  
-b = x_param_group(hslider("[2]b", 3, -20, 20, .000001) : smooth);  
+x_param_group(x) = vgroup("[0]x-parameters", x);
+y_param_group(x) = vgroup("[1]y-parameters", x);
+z_param_group(x) = vgroup("[2]z-parameters", x);
+global_group(x) = vgroup("[3]Global", x);
+levels_group(x) = hgroup("[4]Levels (dB)", x);
+a = x_param_group(hslider("[1]a[scale:exp]", 1, 0, 20, .000001) : smooth);  
+b = x_param_group(hslider("[2]b[scale:exp]", 3, 0, 20, .000001) : smooth);  
 I = x_param_group(hslider("[3]I", 2, -20, 20, .000001) : smooth);
 c = y_param_group(hslider("[4]c", 1, -20, 20, .000001) : smooth);  
-d = y_param_group(hslider("[5]d", 5, -20, 20, .000001) : smooth);  
-r = z_param_group(hslider("[6]r", 1, -20, 20, .000001) : smooth);
-s = z_param_group(hslider("[7]s", 4, -20, 20, .000001) : smooth);
-x_r = z_param_group(hslider("[8]x_R", -1.6, -20, 20, .000001) : smooth);            
+d = y_param_group(hslider("[5]d[scale:exp]", 5, 0, 20, .000001) : smooth);  
+r = z_param_group(hslider("[6]r[scale:exp]", 1, 0, 2, .000001) : smooth);
+s = z_param_group(hslider("[7]s[scale:exp]", 4, 0, 20, .000001) : smooth);
+x_r = z_param_group(hslider("[8]x_R", 1.6, -20, 20, .000001) : smooth);            
 dt = global_group(
-    hslider("[9]dt (integration step)[scale:exp]", 0.1, 0.000001, 1, .000001) : 
+    hslider("[4]dt (integration step)[scale:exp]", 0.1, 0.000001, 1, .000001) : 
         smooth);
 input(x) = global_group(nentry("[3]Input value", 1, 0, 10, .000001) <: 
     _ * impulse + _ * checkbox("[1]Constant inputs") + 
         x * checkbox("[0]External inputs"));
-impulse = checkbox("[2]Impulse inputs") <: _ - _' : abs;
+impulse = button("[2]Impulse inputs") : ba.impulsify;
 limit = global_group(
-    hslider("[9]Saturation limit[scale:exp]", 4, 1, 1024, .000001) : smooth);
-out = global_group(hslider("[9]Output scaling[scale:exp]", 0, 0, 1, .000001) : 
+    hslider("[5]Saturation limit[scale:exp]", 4, 1, 64, .000001) : smooth);
+out = global_group(hslider("[6]Output scaling[scale:exp]", 0, 0, 1, .000001) : 
     smooth);
 
 process(x1, x2, x3) = 
